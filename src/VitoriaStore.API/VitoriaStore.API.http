@@ -1,0 +1,6 @@
+@VitoriaStore.API_HostAddress = http://localhost:5232
+
+GET {{VitoriaStore.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

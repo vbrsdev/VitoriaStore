@@ -16,7 +16,7 @@
       "launchUrl": "swagger",
       "applicationUrl": "http://localhost:5232",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Vitoria"
       }
     },
     "https": {
@@ -29,6 +29,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
+    //servidor que roda os projetos .NET 
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,

@@ -3,7 +3,25 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VitoriaStore.API", "..\VitoriaStore.API\VitoriaStore.API.csproj", "{BD6AC4E3-3B98-48A7-AF10-E42878A09242}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VitoriaStore.Core", "..\VitoriaStore.Core\VitoriaStore.Core.csproj", "{DAC4FFE4-9035-4ABF-9190-DC130BBA57E7}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BD6AC4E3-3B98-48A7-AF10-E42878A09242}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD6AC4E3-3B98-48A7-AF10-E42878A09242}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD6AC4E3-3B98-48A7-AF10-E42878A09242}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD6AC4E3-3B98-48A7-AF10-E42878A09242}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAC4FFE4-9035-4ABF-9190-DC130BBA57E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAC4FFE4-9035-4ABF-9190-DC130BBA57E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAC4FFE4-9035-4ABF-9190-DC130BBA57E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAC4FFE4-9035-4ABF-9190-DC130BBA57E7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection

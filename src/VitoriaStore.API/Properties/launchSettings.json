@@ -16,7 +16,7 @@
       "launchUrl": "swagger",
       "applicationUrl": "http://localhost:5232",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Vitoria"
+        "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
     "https": {

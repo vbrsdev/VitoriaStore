@@ -39,9 +39,9 @@ public class ProductController : ControllerBase //obrigatorio
         return Ok(productList);
     }
 
+    //o metodo que não tiver um atributo, é do tipo query params
+    //api/product/allByNameFilter?productName=vestido
     [HttpGet("allByNameFilter")]
-    //é uma interface que aceita qualquer tipo retorno
-    //checklist: create ok  read ok update ok delete ok
     public IActionResult GetAllProductsByNameFilter(string productName)//endpoint   
     {
         List<Product> productList = Context.Product.Where(x => x.Name.Contains(productName)).ToList();
@@ -49,15 +49,26 @@ public class ProductController : ControllerBase //obrigatorio
         return Ok(productList);
     }
 
-    // ex => GET: api/home/{id}
-    [HttpGet("{id}")]
+    // o metodo que tiver um atributo, é do tipo Attribute routing
+    //api/product/Get-By-Id/4
+    [HttpGet("Get-By-Id/{id}")]
     public IActionResult GetById(int id)
     {
         Product product = Context.Product.FirstOrDefault(x => x.Id == id);
         return Ok(product);
     }
 
-  
+    //api/product/GetByNameAndId/6?productName=calça
+    [HttpGet("GetByNameAndId/{id}")]
+    public IActionResult GetAllProductsByNameAndId(int id, string productName)//endpoint   
+    {
+        List<Product> productList = Context.Product.Where(x => x.Name == productName && x.Id == id).ToList();
+
+        return Ok(productList);
+    }
+
+
+
     // POST: api/home
     [HttpPost("create")] //post se usa para salvar registros/infos do front no BD
     public IActionResult PostCreateProduct([FromBody] Product product)

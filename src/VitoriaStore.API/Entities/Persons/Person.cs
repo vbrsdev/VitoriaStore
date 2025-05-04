@@ -1,4 +1,6 @@
-﻿namespace VitoriaStore.API.Entities.Persons
+﻿using System.Security.Cryptography.X509Certificates;
+
+namespace VitoriaStore.API.Entities.Persons
 {
     //criando classe Person CRUD
     public class Person

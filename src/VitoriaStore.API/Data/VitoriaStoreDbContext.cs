@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using VitoriaStore.API.Entities.Categories;
+using VitoriaStore.API.Entities.Persons;
 using VitoriaStore.API.Entities.Products;
 
 namespace VitoriaStore.API.Data
@@ -25,6 +26,7 @@ namespace VitoriaStore.API.Data
         //uma classe do EF utilizado para informar ao DbContext qual entidade de classe deve ser transfomada em tabela do BD
         public DbSet<Product> Product { get; set; }
         public DbSet<Category> Category { get; set; }
+        public DbSet<Person> Person { get; set; }
 
     }
 }

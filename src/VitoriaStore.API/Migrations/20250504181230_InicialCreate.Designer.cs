@@ -12,8 +12,8 @@ using VitoriaStore.API.Data;
 namespace VitoriaStore.API.Migrations
 {
     [DbContext(typeof(VitoriaStoreDbContext))]
-    [Migration("20250223181050_FieldIsDeleted_Product")]
-    partial class FieldIsDeleted_Product
+    [Migration("20250504181230_InicialCreate")]
+    partial class InicialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

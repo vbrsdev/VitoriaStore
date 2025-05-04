@@ -12,8 +12,8 @@ using VitoriaStore.API.Data;
 namespace VitoriaStore.API.Migrations
 {
     [DbContext(typeof(VitoriaStoreDbContext))]
-    [Migration("20250120180641_FieldMyColumn_Category")]
-    partial class FieldMyColumn_Category
+    [Migration("20250504182334_AllPerson")]
+    partial class AllPerson
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,12 +36,11 @@ namespace VitoriaStore.API.Migrations
                     b.Property<DateTime>("CreateBy")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("Description")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
-
-                    b.Property<string>("MyColumn")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -53,6 +52,36 @@ namespace VitoriaStore.API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Category");
+                });
+
+            modelBuilder.Entity("VitoriaStore.API.Entities.Persons.Person", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ContactNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreateBy")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdateBy")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Person");
                 });
 
             modelBuilder.Entity("VitoriaStore.API.Entities.Products.Product", b =>
@@ -69,6 +98,9 @@ namespace VitoriaStore.API.Migrations
                     b.Property<string>("Image")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()

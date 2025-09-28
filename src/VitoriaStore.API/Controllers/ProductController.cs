@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using VitoriaStore.API.Data;
+using VitoriaStore.API.DTO.Persons;
+using VitoriaStore.API.DTO.Products;
 using VitoriaStore.API.Entities;
 using VitoriaStore.API.Entities.Categories;
 using VitoriaStore.API.Entities.Products;
@@ -19,74 +21,76 @@ public class ProductController : ControllerBase //obrigatorio
     }
 
     //atributo
-    [HttpGet("all")]
+    [HttpGet()]
     //é uma interface que aceita qualquer tipo retorno
-    //checklist: create ok  read ok update ok delete ok
-    public IActionResult GetAllProducts()//endpoint   
+    
+    public IActionResult GetProducts([FromQuery]FilterProduct filterProduct)//endpoint   
     {
-        List<Product> productList = Context.Product.Where(x => x.IsDeleted != true).ToList();
-        
-        return Ok(productList);
-    }
+        List<Product> productList = Context.Product.
+        Where(x => 
+        (filterProduct.Name == null || x.Name.Contains(filterProduct.Name)) &&
+        (filterProduct.Stock == null || x.Stock.ToString().Contains(filterProduct.Stock.ToString())) &&
+         (filterProduct.Id == null || x.Id.ToString().Contains(filterProduct.Id.ToString()))).ToList();
 
-    [HttpGet("allByName")]
-    //é uma interface que aceita qualquer tipo retorno
-    //checklist: create ok  read ok update ok delete ok
-    public IActionResult GetAllProductsByName(string productName)//endpoint   
-    {
-        List<Product> productList = Context.Product.Where(x => x.Name == productName).ToList();
 
         return Ok(productList);
     }
 
+    
     //o metodo que não tiver um atributo, é do tipo query params
-    //api/product/allByNameFilter?productName=vestido
-    [HttpGet("allByNameFilter")]
-    public IActionResult GetAllProductsByNameFilter(string productName)//endpoint   
-    {
-        List<Product> productList = Context.Product.Where(x => x.Name.Contains(productName)).ToList();
-
-        return Ok(productList);
-    }
-
     // o metodo que tiver um atributo, é do tipo Attribute routing
+
     //api/product/Get-By-Id/4
-    [HttpGet("Get-By-Id/{id}")]
-    public IActionResult GetById(int id)
+    [HttpGet("{id}")]
+    public IActionResult GetProduct(int id)
     {
-        Product product = Context.Product.FirstOrDefault(x => x.Id == id);
+        Product product = Context.Product.Single(x => x.Id == id);
         return Ok(product);
     }
 
-    //api/product/GetByNameAndId/6?productName=calça
-    [HttpGet("GetByNameAndId/{id}")]
-    public IActionResult GetAllProductsByNameAndId(int id, string productName)//endpoint   
-    {
-        List<Product> productList = Context.Product.Where(x => x.Name == productName && x.Id == id).ToList();
-
-        return Ok(productList);
-    }
-
-
-
     // POST: api/home
-    [HttpPost("create")] //post se usa para salvar registros/infos do front no BD
-    public IActionResult PostCreateProduct([FromBody] Product product)
+    [HttpPost()] //post se usa para salvar registros/infos do front no BD
+    public IActionResult PostCreateProduct([FromBody] ProductDTO productDTO)
     {
-        return Created("", product);
+        Product productCreate = new Product
+        {
+            Name = productDTO.Name, 
+            Price = productDTO.Price,
+            Image = productDTO.Image,
+            Stock = productDTO.Stock,
+            CreateBy = DateTime.Now,
+        };
+
+        Context.Product.Add(productCreate);
+        Context.SaveChanges();
+        return Created("", productCreate);
     }
 
-    [HttpPost("update")] //post se usa para salvar registros/infos do front no BD
-    public IActionResult PostUpdateProduct([FromBody] Product product)
+    [HttpPut("{id}")] //post se usa para salvar registros/infos do front no BD
+    public IActionResult PutUpdateProduct(int id, [FromBody] ProductDTO productDTO)
     {
+        Product productUpdateExist = Context.Product.FirstOrDefault(x => x.Id == id);
+        if (productUpdateExist == null) return NotFound();
+
+        productUpdateExist.Name = productDTO.Name;
+        productUpdateExist.Stock = productDTO.Stock;
+        productUpdateExist.Price = productDTO.Price;
+        Context.SaveChanges();
         return NoContent();
     }
 
 
-    [HttpPost("delete")] //post se usa para salvar registros/infos do front no BD
-    public IActionResult PostDeleteProduct([FromBody] int id)  //[frombody] so se usa no metodo Post
+    [HttpGet("delete")] //post se usa para salvar registros/infos do front no BD
+    public IActionResult DeleteProduct(int id)  //[frombody] so se usa no metodo Post
     {
-        return NoContent();
+        Product product = Context.Product.Find(id);
+        if(product == null)
+        {
+            return NotFound();
+        }
+        Context.Product.Remove(product);
+        Context.SaveChanges();
+        return Ok();
     }
 
     

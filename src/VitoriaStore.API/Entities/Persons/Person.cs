@@ -1,4 +1,5 @@
 ﻿using System.Security.Cryptography.X509Certificates;
+using VitoriaStore.API.DTO.Persons;
 
 namespace VitoriaStore.API.Entities.Persons
 {
@@ -7,10 +8,20 @@ namespace VitoriaStore.API.Entities.Persons
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string ContactNumber { get; set; }
-        public bool IsDeleted { get; set; }
+        public string? ContactNumber { get; set; }
+        public bool? IsDeleted { get; set; }
         public DateTime CreateBy { get; set; }
-        public DateTime UpdateBy { get; set; }
+        public DateTime? UpdateBy { get; set; }
+
+        public PersonDTO MapDtoToPerson(Person person)
+        {
+            PersonDTO dto = new PersonDTO();
+            dto.Name = person.Name;
+            dto.Id = person.Id;
+            dto.ContactNumber = person.ContactNumber;
+
+            return dto;
+        }
 
     }
 }

@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using VitoriaStore.API.Data;
-using VitoriaStore.API.DTO.Persons;
 using VitoriaStore.API.DTO.Products;
 using VitoriaStore.API.Entities;
 using VitoriaStore.API.Entities.Categories;
@@ -75,12 +74,13 @@ public class ProductController : ControllerBase //obrigatorio
         productUpdateExist.Name = productDTO.Name;
         productUpdateExist.Stock = productDTO.Stock;
         productUpdateExist.Price = productDTO.Price;
+        productUpdateExist.Image = productDTO.Image;
         Context.SaveChanges();
         return NoContent();
     }
 
 
-    [HttpGet("delete")] //post se usa para salvar registros/infos do front no BD
+    [HttpDelete("{id}")] //post se usa para salvar registros/infos do front no BD
     public IActionResult DeleteProduct(int id)  //[frombody] so se usa no metodo Post
     {
         Product product = Context.Product.Find(id);
